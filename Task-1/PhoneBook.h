@@ -6,7 +6,7 @@
 #include <iomanip>
 class PhoneBook
 {
-private:
+public:
 	struct Person
 	{
 	private:
@@ -19,10 +19,10 @@ private:
 		bool operator<(const Person& p);
 		bool operator>(const Person& p);
 		bool operator==(const Person& p);
-		std::ostream& operator<<(std::ostream &out);
+		friend std::ostream& operator<<(std::ostream &out, const Person &person);
 	};
 
-public:
+
 	Person person{"Surn", "Nam", "Pat"};
 };
 

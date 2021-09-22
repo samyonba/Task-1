@@ -8,7 +8,8 @@ int main()
 {
     //initial comment
     PhoneBook pBook;
-    pBook.person.operator<<(std::cout);
+    //pBook.person.operator<<(std::cout);
+    std::cout << pBook.person;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
