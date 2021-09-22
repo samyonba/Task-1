@@ -2,10 +2,13 @@
 //
 
 #include <iostream>
+#include "PhoneBook.h"
 
 int main()
 {
     //initial comment
+    PhoneBook pBook;
+    pBook.person.operator<<(std::cout);
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
