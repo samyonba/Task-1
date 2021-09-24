@@ -6,7 +6,8 @@
 #include <iomanip>
 class PhoneBook
 {
-public:
+//public:
+private:
 	struct Person
 	{
 	private:
@@ -22,7 +23,26 @@ public:
 		friend std::ostream& operator<<(std::ostream &out, const Person &person);
 	};
 
+	friend std::ostream& operator<<(std::ostream &out, const Person &person);
 
-	Person person{"Surn", "Nam", "Pat"};
+	struct PhoneNumber
+	{
+	private:
+		int countryId;
+		int cityId;
+		std::string number;
+		std::optional<int> extension;
+	public:
+		bool operator<(const PhoneNumber& phone);
+		bool operator>(const PhoneNumber& phone);
+		bool operator==(const PhoneNumber& phone);
+		friend std::ostream& operator<<(std::ostream& out, const PhoneNumber& phoneNumber);
+	};
+
+	friend std::ostream& operator<<(std::ostream& out, const PhoneNumber& phoneNumber);
+
+public:
+	//std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> person_number;
+	Person person{"Surn", "Nam", "Pat"}; //Test object
 };
 
