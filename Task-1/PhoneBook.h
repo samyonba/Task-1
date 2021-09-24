@@ -16,6 +16,7 @@ private:
 		std::optional<std::string> patronymic;
 	
 	public:
+		Person(std::string surname, std::string name);
 		Person(std::string surname, std::string name, std::optional<std::string> patronymic);
 		bool operator<(const Person& p);
 		bool operator>(const Person& p);
@@ -33,6 +34,8 @@ private:
 		std::string number;
 		std::optional<int> extension;
 	public:
+		PhoneNumber(int countryId, int cityId, std::string number);
+		PhoneNumber(int countryId, int cityId, std::string number, std::optional<int> extension);
 		bool operator<(const PhoneNumber& phone);
 		bool operator>(const PhoneNumber& phone);
 		bool operator==(const PhoneNumber& phone);
@@ -41,8 +44,10 @@ private:
 
 	friend std::ostream& operator<<(std::ostream& out, const PhoneNumber& phoneNumber);
 
+	std::vector<std::pair<Person, PhoneNumber>> contacts;
+
 public:
 	//std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> person_number;
-	Person person{"Surn", "Nam", "Pat"}; //Test object
+	/*Person person{"Surn", "Nam", "Pat"};*/ //Test object
 };
 
