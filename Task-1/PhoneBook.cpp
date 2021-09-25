@@ -103,12 +103,11 @@ PhoneBook::PhoneBook(std::ifstream& file)
 		std::getline(file, str);
 		sstr << str;
 		
-		
 		std::string strEx;
 		sstr >> sSurname >> sName >> sPatronimic >> sCountry >> sCity >> sNumber;
 		
-		//
-		/*if (strEx.compare("-") == 0)
+		/*sstr >> strEx;
+		if (strEx.compare("-") == 0)
 			sExtension = std::nullopt;
 		else
 		{
