@@ -6,10 +6,11 @@
 
 int main()
 {
-    //initial comment
-    PhoneBook pBook;
-    //pBook.person.operator<<(std::cout);
-    //std::cout << pBook.person;
+    std::ifstream file("C:\\Users\\1\\Desktop\\C++ сложные моменты\\Projects\\Task-1\\Task-1\\Input.txt");
+    //file.open("Input.txt");
+    PhoneBook phoneBook(file);
+    std::cout << phoneBook << std::endl;
+    file.close();
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

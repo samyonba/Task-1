@@ -4,6 +4,7 @@
 #include <optional>
 #include <functional>
 #include <iomanip>
+#include <fstream>
 class PhoneBook
 {
 //public:
@@ -45,9 +46,10 @@ private:
 	friend std::ostream& operator<<(std::ostream& out, const PhoneNumber& phoneNumber);
 
 	std::vector<std::pair<Person, PhoneNumber>> contacts;
+	
 
 public:
-	//std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> person_number;
-	/*Person person{"Surn", "Nam", "Pat"};*/ //Test object
+	PhoneBook(std::ifstream& file);
+	friend std::ostream& operator<<(std::ostream& out, const PhoneBook book);
 };
 
