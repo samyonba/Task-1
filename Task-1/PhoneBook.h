@@ -20,7 +20,7 @@ private:
 		Person();
 		Person(std::string surname, std::string name);
 		Person(std::string surname, std::string name, std::optional<std::string> patronymic);
-		bool operator<(const Person& p);
+		bool operator<(const Person &p);
 		bool operator>(const Person& p);
 		bool operator==(const Person& p);
 		friend std::ostream& operator<<(std::ostream &out, const Person &person);
@@ -51,11 +51,18 @@ private:
 	friend std::ostream& operator<<(std::ostream& out, const PhoneNumber& phoneNumber);
 	friend std::istream& operator>>(std::istream& in, PhoneNumber& phoneNumber);
 
+	//bool compNames(const std::pair<Person, PhoneNumber>& firstContact, const std::pair<Person, PhoneNumber>& secondContact);
+	//bool compPhones(const std::pair<Person, PhoneNumber>& firstContact, const std::pair<Person, PhoneNumber>& secondContact);
+
 	std::vector<std::pair<Person, PhoneNumber>> contacts;
 	
-
 public:
 	PhoneBook(std::ifstream& file);
 	friend std::ostream& operator<<(std::ostream& out, const PhoneBook book);
+
+	//void sortByName();
+	//void sortByPhone();
+	//bool findPerson(const std::pair<Person, PhoneNumber>& contact);
+	//void changePhoneNumber(Person& person, PhoneNumber& phoneNumber);
 };
 
