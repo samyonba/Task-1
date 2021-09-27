@@ -17,15 +17,18 @@ private:
 		std::optional<std::string> patronymic;
 	
 	public:
+		Person();
 		Person(std::string surname, std::string name);
 		Person(std::string surname, std::string name, std::optional<std::string> patronymic);
 		bool operator<(const Person& p);
 		bool operator>(const Person& p);
 		bool operator==(const Person& p);
 		friend std::ostream& operator<<(std::ostream &out, const Person &person);
+		friend std::istream& operator>>(std::istream& in, Person& person);
 	};
 
 	friend std::ostream& operator<<(std::ostream &out, const Person &person);
+	friend std::istream& operator>>(std::istream& in, Person& person);
 
 	struct PhoneNumber
 	{
@@ -35,15 +38,18 @@ private:
 		std::string number;
 		std::optional<int> extension;
 	public:
+		PhoneNumber();
 		PhoneNumber(int countryId, int cityId, std::string number);
 		PhoneNumber(int countryId, int cityId, std::string number, std::optional<int> extension);
 		bool operator<(const PhoneNumber& phone);
 		bool operator>(const PhoneNumber& phone);
 		bool operator==(const PhoneNumber& phone);
 		friend std::ostream& operator<<(std::ostream& out, const PhoneNumber& phoneNumber);
+		friend std::istream& operator>>(std::istream& in, PhoneNumber& phoneNumber);
 	};
 
 	friend std::ostream& operator<<(std::ostream& out, const PhoneNumber& phoneNumber);
+	friend std::istream& operator>>(std::istream& in, PhoneNumber& phoneNumber);
 
 	std::vector<std::pair<Person, PhoneNumber>> contacts;
 	

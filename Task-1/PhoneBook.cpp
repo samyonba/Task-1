@@ -1,6 +1,11 @@
 #include "PhoneBook.h"
 #include <sstream>
 
+PhoneBook::Person::Person()
+	:patronymic(std::nullopt)
+{
+}
+
 PhoneBook::Person::Person(std::string surname, std::string name)
 	: surname(surname), name(name), patronymic(std::nullopt)
 {
@@ -33,8 +38,25 @@ std::ostream& operator<<(std::ostream& out, const PhoneBook::Person& person)
 	if (person.patronymic.has_value())
 		out << std::internal << std::setw(16) << person.patronymic.value();
 	else
-		out << "-";
+		out << std::internal << std::setw(16) << "";
 	return out;
+}
+
+std::istream& operator>>(std::istream& in, PhoneBook::Person& person)
+{
+	in >> person.surname;
+	in >> person.name;
+	std::string patronimicString;
+	in >> patronimicString;
+	if (patronimicString == "-")
+	{
+		person.patronymic = std::nullopt;
+	}
+	else
+	{
+		person.patronymic = patronimicString;
+	}
+	return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const PhoneBook::PhoneNumber& phoneNumber)
@@ -42,8 +64,31 @@ std::ostream& operator<<(std::ostream& out, const PhoneBook::PhoneNumber& phoneN
 	out << "+" << phoneNumber.countryId << "(" << phoneNumber.cityId << ")"
 		<< phoneNumber.number;
 	if (phoneNumber.extension.has_value())
-		out << " " << phoneNumber.extension.value();
+		out << "  " << phoneNumber.extension.value();
 	return out;
+}
+
+std::istream& operator>>(std::istream& in, PhoneBook::PhoneNumber& phoneNumber)
+{
+	in >> phoneNumber.countryId;
+	in >> phoneNumber.cityId;
+	in >> phoneNumber.number;
+	std::string extensionString;
+	in >> extensionString;
+	if (extensionString == "-")
+	{
+		phoneNumber.extension = std::nullopt;
+	}
+	else
+	{
+		std::stringstream sStream;
+		sStream << extensionString;
+		int extInt;
+		sStream >> extInt;
+		phoneNumber.extension = extInt;
+
+	}
+	return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const PhoneBook book)
@@ -53,6 +98,11 @@ std::ostream& operator<<(std::ostream& out, const PhoneBook book)
 		out << contact.first << " " << contact.second << std::endl;
 	}
 	return out;
+}
+
+PhoneBook::PhoneNumber::PhoneNumber()
+	:countryId(0), cityId(0)
+{
 }
 
 PhoneBook::PhoneNumber::PhoneNumber(int countryId, int cityId, std::string number)
@@ -87,37 +137,15 @@ PhoneBook::PhoneBook(std::ifstream& file)
 		std::cout << "Can't open file." << std::endl;
 		return;
 	}
-	std::stringstream sstr;
-	std::string str;
-
-	std::string sSurname;
-	std::string sName;
-	std::string sPatronimic;
-	int sCountry;
-	int sCity;
-	std::string sNumber;
-	std::optional<int> sExtension = std::nullopt;
-
+	
 	while (!file.eof())
 	{
-		std::getline(file, str);
-		sstr << str;
-		
-		std::string strEx;
-		sstr >> sSurname >> sName >> sPatronimic >> sCountry >> sCity >> sNumber;
-		
-		/*sstr >> strEx;
-		if (strEx.compare("-") == 0)
-			sExtension = std::nullopt;
-		else
-		{
-			std::stringstream sstrExt;
-			sstrExt << strEx;
-			int num;
-			sstrExt >> num;
-			sExtension = num;
-		}*/
-			
-		contacts.push_back(std::pair(Person(sSurname, sName, sPatronimic), PhoneNumber(sCountry, sCity, sNumber, sExtension)));
+		std::string inputLine;
+		std::getline(file, inputLine);
+		std::stringstream inputStream;
+		inputStream << inputLine;
+		auto contact = std::make_pair(Person(), PhoneNumber());
+		inputStream >> contact.first >> contact.second;
+		contacts.push_back(contact);
 	}
 }
