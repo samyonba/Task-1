@@ -2,19 +2,6 @@
 #include <sstream>
 #include <algorithm>
 
-PhoneBook::Person::Person()
-	:patronymic(std::nullopt)
-{
-}
-PhoneBook::Person::Person(std::string surname, std::string name)
-	: surname(surname), name(name), patronymic(std::nullopt)
-{
-}
-PhoneBook::Person::Person(std::string surname, std::string name, std::optional<std::string> patronymic)
-	: surname(surname), name(name), patronymic(patronymic)
-{
-}
-
 bool PhoneBook::Person::operator<(const Person& p)
 {
 	return std::tie(surname, name, patronymic) < std::tie(p.surname, p.name, p.patronymic);
@@ -62,19 +49,6 @@ std::ostream& operator<<(std::ostream& out, const PhoneBook book)
 		out << contact.first << " " << contact.second << std::endl;
 	}
 	return out;
-}
-
-PhoneBook::PhoneNumber::PhoneNumber()
-	:countryId(0), cityId(0)
-{
-}
-PhoneBook::PhoneNumber::PhoneNumber(int countryId, int cityId, std::string number)
-	: countryId(countryId), cityId(cityId), number(number), extension(std::nullopt)
-{
-}
-PhoneBook::PhoneNumber::PhoneNumber(int countryId, int cityId, std::string number, std::optional<int> extension)
-	: countryId(countryId), cityId(cityId), number(number), extension(extension)
-{
 }
 
 bool PhoneBook::PhoneNumber::operator<(const PhoneNumber& phone)

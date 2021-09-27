@@ -17,9 +17,8 @@ private:
 		std::optional<std::string> patronymic;
 	
 	public:
-		Person();
-		Person(std::string surname, std::string name);
-		Person(std::string surname, std::string name, std::optional<std::string> patronymic);
+		Person() :patronymic(std::nullopt) {};
+		
 		bool operator<(const Person &p);
 		bool operator>(const Person& p);
 		bool operator==(const Person& p);
@@ -38,9 +37,7 @@ private:
 		std::string number;
 		std::optional<int> extension;
 	public:
-		PhoneNumber();
-		PhoneNumber(int countryId, int cityId, std::string number);
-		PhoneNumber(int countryId, int cityId, std::string number, std::optional<int> extension);
+		PhoneNumber() :extension(std::nullopt) {};
 		bool operator<(const PhoneNumber& phone);
 		bool operator>(const PhoneNumber& phone);
 		bool operator==(const PhoneNumber& phone);
