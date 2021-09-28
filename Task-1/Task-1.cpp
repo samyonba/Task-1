@@ -1,7 +1,4 @@
-﻿// Task-1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
+﻿#include <iostream>
 #include "PhoneBook.h"
 
 int main()
@@ -11,14 +8,16 @@ int main()
 
     std::cout << phoneBook << std::endl;
 
-    /*phoneBook.sortByName();
+    phoneBook.sortByName();
     std::cout << phoneBook << std::endl;
 
     phoneBook.sortByPhone();
-    std::cout << phoneBook << std::endl;*/
+    std::cout << phoneBook << std::endl;
 
+    std::cout << "----ChangePhoneNumber----" << std::endl;
+    phoneBook.changePhoneNumber("Kotov", "Vasilii", "Eliseevich", 7, 123, "15344458", std::nullopt);
+    phoneBook.changePhoneNumber("Mironova", "Margarita", "Vladimirovna", 16, 465, "9155448", 13);
+    std::cout << phoneBook << std::endl;
+    
     file.close();
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"

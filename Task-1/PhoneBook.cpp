@@ -115,7 +115,7 @@ PhoneBook::PhoneBook(std::ifstream& file)
 	}
 }
 
-//bool PhoneBook::compNames(const std::pair<Person, PhoneNumber> &firstContact, const std::pair<Person, PhoneNumber> &secondContact)
+//bool PhoneBook::compNames(std::pair<Person, PhoneNumber> &firstContact, const std::pair<Person, PhoneNumber> &secondContact)
 //{
 //	return (firstContact.first < secondContact.first);
 //}
@@ -135,12 +135,45 @@ PhoneBook::PhoneBook(std::ifstream& file)
 //	std::cout << "----- Sort by name -----" << std::endl;
 //	std::sort(contacts.begin(), contacts.end(), compNames);
 //}
-//
+
+void PhoneBook::sortByName()
+{
+	std::cout << "----- Sort by name -----" << std::endl;
+	std::sort(contacts.begin(), contacts.end(), [](std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> firstContact, std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> secondContact)
+		{
+			return firstContact.first < secondContact.first;
+		});
+}
+
 //void PhoneBook::sortByPhone()
 //{
 //	std::cout << "----- Sort by phone -----" << std::endl;
 //	std::sort(contacts.begin(), contacts.end(), compPhones);
 //}
+
+void PhoneBook::sortByPhone()
+{
+	std::cout << "----- Sort by phone -----" << std::endl;
+	std::sort(contacts.begin(), contacts.end(), [](std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> firstContact, std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> secondContact)
+		{
+			return firstContact.second < secondContact.second;
+		});
+}
+
+void PhoneBook::changePhoneNumber(std::string surname, std::string name, std::optional<std::string> patronimic, int countryId, int cityID, std::string number, std::optional<int> extension)
+{
+	Person person(surname, name, patronimic);
+	PhoneNumber phoneNumber(countryId, cityID, number, extension);
+	std::cout << "----- Change phone number -----" << std::endl;
+	std::_Vector_const_iterator iter = contacts.begin();
+	auto targetPerson = std::find_if(contacts.begin(), contacts.end(), [person](std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> contact)
+		{
+			return contact.first == person;
+		});
+	if (targetPerson == contacts.end())
+		return;
+	targetPerson->second = phoneNumber;
+}
 
 //void PhoneBook::changePhoneNumber(Person& person, PhoneNumber& phoneNumber)
 //{
@@ -148,4 +181,17 @@ PhoneBook::PhoneBook(std::ifstream& file)
 //	std::_Vector_const_iterator iter = contacts.begin();
 //	auto targetPerson = std::find_if(contacts.begin(), contacts.end(), findPerson);
 //	
+//}
+
+//void PhoneBook::changePhoneNumber(Person& person, PhoneNumber& phoneNumber)
+//{
+//	std::cout << "----- Change phone number -----" << std::endl;
+//	std::_Vector_const_iterator iter = contacts.begin();
+//	auto targetPerson = std::find_if(contacts.begin(), contacts.end(), [person](std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> contact)
+//		{
+//			return contact.first == person;
+//		});
+//	if (targetPerson == contacts.end())
+//		return;
+//	targetPerson->second = phoneNumber;
 //}

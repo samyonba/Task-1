@@ -18,7 +18,7 @@ private:
 	
 	public:
 		Person() :patronymic(std::nullopt) {};
-		
+		Person(std::string surname, std::string name, std::optional<std::string> patronymic) :surname(surname), name(name), patronymic(patronymic) {};
 		bool operator<(const Person &p);
 		bool operator>(const Person& p);
 		bool operator==(const Person& p);
@@ -37,7 +37,8 @@ private:
 		std::string number;
 		std::optional<int> extension;
 	public:
-		PhoneNumber() :extension(std::nullopt) {};
+		PhoneNumber() :countryId(0), cityId(0), extension(std::nullopt) {};
+		PhoneNumber(int countryId, int cityId, std::string number, std::optional<int> extension) :countryId(countryId), cityId(cityId), number(number), extension(extension) {};
 		bool operator<(const PhoneNumber& phone);
 		bool operator>(const PhoneNumber& phone);
 		bool operator==(const PhoneNumber& phone);
@@ -57,9 +58,10 @@ public:
 	PhoneBook(std::ifstream& file);
 	friend std::ostream& operator<<(std::ostream& out, const PhoneBook book);
 
-	//void sortByName();
-	//void sortByPhone();
+	void sortByName();
+	void sortByPhone();
 	//bool findPerson(const std::pair<Person, PhoneNumber>& contact);
 	//void changePhoneNumber(Person& person, PhoneNumber& phoneNumber);
+	void changePhoneNumber(std::string surname, std::string name, std::optional<std::string> patronimic, int countryId, int cityID, std::string number, std::optional<int> extension);
 };
 
