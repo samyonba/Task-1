@@ -17,12 +17,12 @@ bool PhoneBook::Person::operator==(const Person& p)
 
 std::ostream& operator<<(std::ostream& out, const PhoneBook::Person& person)
 {
-	out << std::internal << std::setw(16) << person.surname;
-	out << std::internal << std::setw(12) << person.name;
+	out << " " << std::internal << std::setw(16) << std::left << person.surname;
+	out << " " << std::internal << std::setw(12) << std::left << person.name;
 	if (person.patronymic.has_value())
-		out << std::internal << std::setw(16) << person.patronymic.value();
+		out << " " << std::internal << std::setw(16) << std::left << person.patronymic.value();
 	else
-		out << std::internal << std::setw(16) << "";
+		out << " " << std::internal << std::setw(16) << "";
 	return out;
 }
 std::istream& operator>>(std::istream& in, PhoneBook::Person& person)
@@ -164,8 +164,6 @@ void PhoneBook::changePhoneNumber(std::string surname, std::string name, std::op
 {
 	Person person(surname, name, patronimic);
 	PhoneNumber phoneNumber(countryId, cityID, number, extension);
-	std::cout << "----- Change phone number -----" << std::endl;
-	std::_Vector_const_iterator iter = contacts.begin();
 	auto targetPerson = std::find_if(contacts.begin(), contacts.end(), [person](std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> contact)
 		{
 			return contact.first == person;

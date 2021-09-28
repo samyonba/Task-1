@@ -64,4 +64,3 @@ public:
 	//void changePhoneNumber(Person& person, PhoneNumber& phoneNumber);
 	void changePhoneNumber(std::string surname, std::string name, std::optional<std::string> patronimic, int countryId, int cityID, std::string number, std::optional<int> extension);
 };
-
