@@ -15,6 +15,11 @@ bool PhoneBook::Person::operator==(const Person& p)
 	return std::tie(surname, name, patronymic) == std::tie(p.surname, p.name, p.patronymic);
 }
 
+std::string PhoneBook::Person::getSurname()
+{
+	return surname;
+}
+
 std::ostream& operator<<(std::ostream& out, const PhoneBook::Person& person)
 {
 	out << " " << std::internal << std::setw(16) << std::left << person.surname;
@@ -164,13 +169,54 @@ void PhoneBook::changePhoneNumber(std::string surname, std::string name, std::op
 {
 	Person person(surname, name, patronimic);
 	PhoneNumber phoneNumber(countryId, cityID, number, extension);
-	auto targetPerson = std::find_if(contacts.begin(), contacts.end(), [person](std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> contact)
+	auto targetPerson = std::find_if(contacts.begin(), contacts.end(), [&person](std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> contact)
 		{
 			return contact.first == person;
 		});
 	if (targetPerson == contacts.end())
 		return;
 	targetPerson->second = phoneNumber;
+}
+
+std::pair<std::string, PhoneBook::PhoneNumber> PhoneBook::getPhoneNumber(std::string surname)
+{
+	//class FindString
+	//{
+	//	int count = 0;
+	//	std::string resultString = "";
+	//	PhoneBook::PhoneNumber phoneNumber;
+	//	void operator()(std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> contact)
+	//	{
+	//		
+	//	}
+	//} findString;
+	std::pair<std::string, PhoneBook::PhoneNumber> result = std::make_pair("", PhoneBook::PhoneNumber());
+	int count = 0;
+	std::for_each(contacts.begin(), contacts.end(), [&surname, &result, &count](std::pair<PhoneBook::Person, PhoneBook::PhoneNumber> contact)
+		{
+			if (contact.first.getSurname() == surname)
+			{
+				count++;
+				result.second = contact.second;
+			}
+		});
+	if (count == 0)
+	{
+		result.first = "not found";
+		result.second = PhoneBook::PhoneNumber();
+		return result;
+	}
+	else if (count > 1)
+	{
+		result.first = "found more than one";
+		result.second = PhoneBook::PhoneNumber();
+		return result;
+	}
+	else
+	{
+		result.first = surname;
+		return result;
+	}
 }
 
 //void PhoneBook::changePhoneNumber(Person& person, PhoneNumber& phoneNumber)

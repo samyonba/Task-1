@@ -24,6 +24,7 @@ private:
 		bool operator==(const Person& p);
 		friend std::ostream& operator<<(std::ostream &out, const Person &person);
 		friend std::istream& operator>>(std::istream& in, Person& person);
+		std::string getSurname();
 	};
 
 	friend std::ostream& operator<<(std::ostream &out, const Person &person);
@@ -63,4 +64,5 @@ public:
 	//bool findPerson(const std::pair<Person, PhoneNumber>& contact);
 	//void changePhoneNumber(Person& person, PhoneNumber& phoneNumber);
 	void changePhoneNumber(std::string surname, std::string name, std::optional<std::string> patronimic, int countryId, int cityID, std::string number, std::optional<int> extension);
+	std::pair<std::string, PhoneNumber> getPhoneNumber(std::string surname);
 };
